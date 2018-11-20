@@ -1,4 +1,3 @@
-
 def xor_string(str1,str2):
 	result=''
 	for counter, value in enumerate(str2):
@@ -16,9 +15,6 @@ def alter(string,bit):
 	else:
 		string=string[:bit-1]+'1'+string[bit:]
 	return string		
-
-
-
 	
 def long_Division(message,key):
 	result=''
@@ -38,7 +34,10 @@ def long_Division(message,key):
 while(1):
 	print ("please type 'generator file_name' to generate the transmitted message in a file named transmitted")
 	try:
+                
 		response = input('')
+		if(response.find('.')==-1):
+			response=response+".txt"
 		pos=response.find(' ')
 		file = open(response[pos+1:],'r')
 		message=file.readline()[:-1]
@@ -53,26 +52,30 @@ remainder=long_Division(message,key)
 transmitted_Message=bin(int(message,2)^int(remainder,2))[2:]
 file=open('transmitted.txt','+w')
 file.write(transmitted_Message+'\n')
-print ("type 'verify' to see if message is correct or type 'alter(bit_no)' to alter the message")
+file.close()
+#print(transmitted_Message)
+file=open('transmitted.txt','a')
+print ("type v to see if message is correct . \ntype 'a(bit_no)' to alter the message")
 response = input('')
-if(response=="verify"):
+if(response=="v"):
 	remainder=long_Division(transmitted_Message,key)
 	if(remainder=='0'):
 		file.write('message is correct!')
 	else:
 		file.write('message is incorrect!')
-if(response[0:5]=="alter"):
+if(response=="a"):
 	bit_no=int(response[response.find('(')+1:response.find(')')])
 	altered_Message=alter(transmitted_Message,bit_no)
 	print("type verify to see if the message is correct")
 	response = input('')
-	if(response=="verify"):
+	if(response=="v"):
 		remainder=long_Division(altered_Message,key)
 		if(remainder=='0'):
 			file.write('message is correct!')
 		else:
 			file.write('message is incorrect!')
 
+print("check the transmitted text file \n bye bye")
 
 
 file.close()
