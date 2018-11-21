@@ -1,3 +1,4 @@
+
 def xor_string(str1,str2):
 	result=''
 	for counter, value in enumerate(str2):
@@ -63,10 +64,10 @@ if(response=="v"):
 		file.write('message is correct!')
 	else:
 		file.write('message is incorrect!')
-if(response=="a"):
+if(response.find('a')!=-1):
 	bit_no=int(response[response.find('(')+1:response.find(')')])
 	altered_Message=alter(transmitted_Message,bit_no)
-	print("type verify to see if the message is correct")
+	print("type v to see if the message is correct")
 	response = input('')
 	if(response=="v"):
 		remainder=long_Division(altered_Message,key)
